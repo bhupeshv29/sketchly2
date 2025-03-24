@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  :root {
+    --background: 200 20% 98%;
+    --foreground: 200 50% 3%;
+    --card: 0 0% 100%;
+    --card-foreground: 200 50% 3%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 200 50% 3%;
+    --primary: 173 80% 36%;    /* Teal: #0A9396 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 35 92% 65%;   /* Sand: #EE9B00 */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 200 10% 92%;
+    --muted-foreground: 200 40% 40%;
+    --accent: 9 80% 43%;       /* Terracotta: #BB3E03 */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 200 20% 88%;
+    --input: 200 20% 88%;
+    --ring: 173 80% 36%;
+  }
+
+  .dark {
+    --background: 200 50% 3%;
+    --foreground: 200 20% 98%;
+    --card: 200 50% 3%;
+    --card-foreground: 200 20% 98%;
+    --popover: 200 45% 5%;
+    --popover-foreground: 200 20% 98%;
+    --primary: 173 80% 36%;    /* Teal: #0A9396 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 35 92% 65%;   /* Sand: #EE9B00 */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 200 50% 10%;
+    --muted-foreground: 200 20% 65%;
+    --accent: 9 80% 43%;       /* Terracotta: #BB3E03 */
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 200 20% 98%;
+    --border: 200 45% 15%;
+    --input: 200 45% 15%;
+    --ring: 173 80% 36%;
+  }
+}
+
+@layer utilities {
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 8s ease infinite;
+  }
+
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+}
+
+body {
+  min-height: 100vh;
+  @apply bg-background text-foreground;
+}
+
