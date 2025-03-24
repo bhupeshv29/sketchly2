@@ -3,21 +3,24 @@ import { RoomCanvas } from "@/canvas/RoomCanvas"
 
 
 
-const page = async ({params}: {
-    params : {
-        roomName :string
+const page = async (
+    props: {
+        params : Promise<{
+            roomName :string
+        }>
     }
-}) => {
+) => {
+    const params = await props.params;
 
     const roomName = params.roomName;
     const room = await getRoom(roomName)
 
 
-  return (
+    return (
 
-        <RoomCanvas roomId={room.id} room={room} />
+          <RoomCanvas roomId={room.id} room={room} />
 
-  )
+    )
 }
 
 export default page
