@@ -7,6 +7,7 @@ export const prismaClient = new PrismaClient()
 
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 8080;
+console.log("PORT", PORT)
 const wss = new WebSocketServer({ port: PORT });
 
 interface User {
