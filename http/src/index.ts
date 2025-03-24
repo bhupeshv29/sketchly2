@@ -45,7 +45,7 @@ app.post("/signup", async (req, res)=> {
         data: {
             username,
             email,
-            password: password
+            password: hashedPassword
         }
     })
 

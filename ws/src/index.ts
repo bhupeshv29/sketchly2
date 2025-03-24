@@ -1,5 +1,6 @@
 import {WebSocket, WebSocketServer} from "ws"
 import { checkUser } from "./checkUser";
+import "dotenv/config"
 
 import { PrismaClient } from '@prisma/client'
 
