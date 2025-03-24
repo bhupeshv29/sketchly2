@@ -9,13 +9,9 @@ const page = async ({params}: {
     }
 }) => {
 
-    const roomName = (await params).roomName
-
+    const roomName = params.roomName;
     const room = await getRoom(roomName)
 
-    if(!room){
-        return <p>The room Doesnt exist</p>
-    }
 
   return (
 

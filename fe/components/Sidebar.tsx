@@ -16,7 +16,7 @@ export const Sidebar = ({
     activeTool,
     strokeFill,
     setStrokeFill,
-    strokeWidth,
+
     setStrokeWidth,
     bgFill,
     setBgFill,

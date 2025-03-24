@@ -37,7 +37,7 @@ const Dashboard = () => {
       <div className="min-h-screen bg-white flex flex-col items-center justify-center">
         <h1 className="text-3xl font-bold mb-4 text-gray-800">User Not Found</h1>
         <p className="text-xl text-gray-600 mb-6">
-          We couldn't find your user information. Please try logging in again.
+          We could not find your user information. Please try logging in again.
         </p>
         <Link href="/signin" className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors">
           Log In
