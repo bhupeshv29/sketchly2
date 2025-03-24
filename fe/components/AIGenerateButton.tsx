@@ -19,7 +19,9 @@ export const AIGenerateButton = ({ game }: { game?: Game }) => {
     setError("");
 
     try {
-      const response = await fetch(`http://localhost:3001/generate`, {
+      const url  = process.env.NEXT_PUBLIC_HTTP_URL;
+      
+      const response = await fetch(`${url}/generate`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
