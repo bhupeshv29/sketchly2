@@ -10,7 +10,7 @@ export function Footer() {
             <span className="text-lg font-bold">Sketchly</span>
           </div>
           <div className="flex gap-6">
-            <a href="https://github.com/bhupeshv29/CollabDraw.git" className="text-muted-foreground hover:text-primary">
+            <a href="https://github.com/bhupeshv29/sketchly.git" className="text-muted-foreground hover:text-primary">
               <Github className="h-5 w-5" />
             </a>
             <a href="https://twitter.com/bhupesh_29" className="text-muted-foreground hover:text-primary">
