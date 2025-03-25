@@ -16,7 +16,7 @@ export function Footer() {
             <a href="https://twitter.com/bhupesh_29" className="text-muted-foreground hover:text-primary">
               <Twitter className="h-5 w-5" />
             </a>
-            <a href="#" className="text-muted-foreground hover:text-primary">
+            <a href="https://www.linkedin.com/in/bhupesh-verma-684991198" className="text-muted-foreground hover:text-primary">
               <Linkedin className="h-5 w-5" />
             </a>
           </div>
