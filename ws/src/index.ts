@@ -19,6 +19,17 @@ interface User {
 
 const users : User[] = []
 
+
+// 🔹 Keep WebSocket connections alive (Ping Clients every 30 sec)
+setInterval(() => {
+    users.forEach(user => {
+        if (user.ws.readyState === WebSocket.OPEN) {
+            user.ws.ping(); // Send a ping to each client
+        }
+    });
+    console.log("✅ Sent keep-alive pings to WebSocket clients");
+}, 30 * 1000); // Every 30 seconds
+
 wss.on("connection", function connection(ws, request){
     const url = request.url
 
@@ -70,7 +81,7 @@ wss.on("connection", function connection(ws, request){
                 return;
             }
 
-            user.rooms = user.rooms.filter(x => x === parsedData.room)
+            user.rooms = user.rooms.filter(x => x !== parsedData.room)
         }
 
         if(parsedData.type === "draw"){
@@ -122,4 +133,22 @@ wss.on("connection", function connection(ws, request){
         }
 
     })
-})
+
+    // 🔹 Handle Client Pings (Respond to Pong)
+    ws.on("pong", () => {
+        console.log(`✅ Received pong from client`);
+    });
+});
+
+
+
+// 🔹 Keep the Render Instance Alive (Self-Pinging every 4 minutes)
+setInterval(async () => {
+try {
+    const url = "https://sketchly2-1ws.onrender.com"; // ✅ Update with your WebSocket URL
+    await fetch(url);
+    console.log(`✅ Pinged ${url} to prevent Render from sleeping`);
+} catch (error) {
+    console.error("❌ Render keep-alive request failed:", error);
+}
+}, 4 * 60 * 1000); // Every 4 minutes

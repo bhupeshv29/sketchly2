@@ -14,6 +14,10 @@ app.use(cors())
 
 console.log(process.env.JWT_SECRET)
 
+app.get("/keep-alive", (req, res) => {
+    res.send("Keeping the server alive!");
+});
+
 app.post("/signup", async (req, res)=> {
     const validatedFields = RegisterSchema.safeParse(req.body)
 
@@ -213,5 +217,15 @@ app.post("/generate", async (req, res) => {
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-    console.log("Listening at port", PORT)
+    console.log("Listening at port", PORT);
+    setInterval(async () => {
+        try {
+            const url = `https://sketchly2.onrender.com/keep-alive`; // Replace with your actual Render URL
+            await fetch(url);
+            console.log(`Pinged ${url} to keep alive`);
+        } catch (error) {
+            console.error("Keep-alive request failed:", error);
+        }
+    }, 4 * 60 * 1000); // Ping every 4 minutes
+
 })
