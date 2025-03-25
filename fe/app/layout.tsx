@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Sketchly - Real-time Collaborative Drawing App",
     description: "Draw, collaborate, and bring ideas to life with Sketchly, the ultimate digital canvas.",
-    // url: "https://yourwebsite.com",
+    url: "https://sketchly.vercel.app",
     siteName: "Sketchly",
     // images: [{ url: "https://yourwebsite.com/og-image.jpg", width: 1200, height: 630, alt: "Sketchly App" }],
     type: "website",

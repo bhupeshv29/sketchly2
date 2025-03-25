@@ -8,6 +8,7 @@ export const AIGenerateButton = ({ game }: { game?: Game }) => {
   const [prompt, setPrompt] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showForm, setShowForm] = useState(false);
 
   const socket = useSocket(game?.getRoomId() || null);
 
@@ -56,25 +57,43 @@ export const AIGenerateButton = ({ game }: { game?: Game }) => {
     }
   };
   return (
-    <div className="fixed top-4 right-4 bg-white p-4 rounded-lg shadow-lg">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-        <input
-          type="text"
-          value={prompt}
-          onChange={(e) => setPrompt(e.target.value)}
-          placeholder="Describe your drawing..."
-          className="px-4 py-2 border rounded"
-          disabled={isLoading}
-        />
+    <>
+      {!showForm ? (
         <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-400"
-          disabled={isLoading || !prompt.trim()}
+          onClick={() => setShowForm(true)}
+          className="fixed bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg text-lg font-semibold hover:bg-blue-600"
         >
-          {isLoading ? "Generating..." : "AI Generate"}
+          AI
         </button>
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-      </form>
-    </div>
+      ) : (
+        <div className="fixed bottom-16 right-4 bg-white dark:bg-gray-900 p-4 rounded-lg shadow-lg z-50 w-64 md:w-80">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+            <input
+              type="text"
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              placeholder="Describe your drawing..."
+              className="px-4 py-2 border rounded bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white"
+              disabled={isLoading}
+            />
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-400 dark:bg-blue-700 dark:hover:bg-blue-800"
+              disabled={isLoading || !prompt.trim()}
+            >
+              {isLoading ? "Generating..." : "AI Generate"}
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowForm(false)}
+              className="text-gray-500 text-sm mt-2 hover:text-gray-700 dark:hover:text-gray-300"
+            >
+              Close
+            </button>
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+          </form>
+        </div>
+      )}
+    </>
   );
 };

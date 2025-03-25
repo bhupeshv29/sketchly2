@@ -18,12 +18,9 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useState } from "react";
 
-
-
 export function CreateRoomForm() {
   const [error, setError] = useState("");
   const [successRoom, setSuccessRoom] = useState<string | null>(null); 
-
 
   const form = useForm<z.infer<typeof CreateRoomSchema>>({
     resolver: zodResolver(CreateRoomSchema),
@@ -57,8 +54,8 @@ export function CreateRoomForm() {
       if (responseData.error) {
         setError(responseData.error);
       } else {
-        // console.log(responseData);
         setSuccessRoom(values.roomName); 
+        window.location.href = `/room/${values.roomName}`;
       }
     } catch (err) {
       setError((err as Error).message || "Unexpected error occurred");
