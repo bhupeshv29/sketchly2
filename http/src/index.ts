@@ -218,14 +218,14 @@ app.post("/generate", async (req, res) => {
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log("Listening at port", PORT);
-    // setInterval(async () => {
-    //     try {
-    //         const url = `https://sketchly2.onrender.com/keep-alive`; 
-    //         await fetch(url);
-    //         console.log(`Pinged ${url} to keep alive`);
-    //     } catch (error) {
-    //         console.error("Keep-alive request failed:", error);
-    //     }
-    // }, 4 * 60 * 1000); // Ping every 4 minutes
+    setInterval(async () => {
+        try {
+            const url = `https://sketchly2.onrender.com/keep-alive`; 
+            await fetch(url);
+            console.log(`Pinged ${url} to keep alive`);
+        } catch (error) {
+            console.error("Keep-alive request failed:", error);
+        }
+    }, 4 * 60 * 1000); // Ping every 4 minutes
 
 })
