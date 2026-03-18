@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.0",
-    "@prisma/client": "^6.5.0",
+    "@prisma/client": "6.5.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
     "@types/jsonwebtoken": "^9.0.9",
