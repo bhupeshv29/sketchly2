@@ -1,6 +1,6 @@
 # Sketchly
 
-[![Website demo video](https://sketchly2.vercel.app/Demo.mp4)](https://sketchly2.vercel.app/Demo.mp4)
+[Watch demo video](fe/public/Demo.mp4)
 
 Real-time collaborative drawing canvas with AI-powered shape generation. Sketch, collaborate, and bring ideas to life in your browser.
 
