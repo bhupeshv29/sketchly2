@@ -1,6 +1,10 @@
 # Sketchly
 
-[Watch demo video](fe/public/Demo.mp4)
+<p align="center">
+  <video src="https://raw.githubusercontent.com/bhupeshv29/sketchly2/main/fe/public/Demo.mp4" controls width="800">
+    Your browser does not support the video tag.
+  </video>
+</p>
 
 Real-time collaborative drawing canvas with AI-powered shape generation. Sketch, collaborate, and bring ideas to life in your browser.
 
