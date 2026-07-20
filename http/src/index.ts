@@ -1,4 +1,5 @@
 import express from "express";
+import crypto from "crypto";
 import { RegisterSchema, LoginSchema, CreateRoomSchema } from "./types";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
@@ -105,6 +106,29 @@ app.post("/signin", async (req, res) => {
   });
 });
 
+app.post("/guest", async (req, res) => {
+  const guestId = crypto.randomUUID().slice(0, 8);
+  const username = `Guest_${guestId}`;
+  const email = `guest_${guestId}@guest.sketchly`;
+  const password = await bcrypt.hash(crypto.randomUUID(), 10);
+
+  const user = await prismaClient.user.create({
+    data: {
+      username,
+      email,
+      password,
+      isGuest: true,
+    },
+  });
+
+  const token = jwt.sign(
+    { userId: user.id },
+    process.env.JWT_SECRET! || "123123",
+  );
+
+  res.json({ token });
+});
+
 app.post("/room", middleware, async (req, res) => {
   const validRoom = CreateRoomSchema.safeParse(req.body);
 
@@ -179,6 +203,7 @@ app.get("/user", middleware, async (req, res) => {
       username: true,
       id: true,
       email: true,
+      isGuest: true,
       room: true,
       shapes: true,
     },
