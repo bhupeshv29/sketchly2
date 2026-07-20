@@ -12,30 +12,32 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model User {
-  id        String      @id @default(uuid())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   email     String   @unique
   username  String
   password  String
+  isGuest   Boolean  @default(false)
   room      Room[]
   shapes    Shape[]
 }
 
 model Room {
-  id   Int   @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   roomName String
   userId   String
-  user     User   @relation(fields: [userId], references: [id])
+  user     User    @relation(fields: [userId], references: [id])
   shape    Shape[]
 }
 
 model Shape {
-  id      Int     @id @default(autoincrement())
-  roomId    Int
-  data    String
-  userId  String
-  
-  room    Room  @relation(fields: [roomId], references: [id])
-  user    User  @relation(fields: [userId], references: [id])
-} 
+  id     Int    @id @default(autoincrement())
+  roomId Int
+  data   String
+  userId String
+
+  room Room @relation(fields: [roomId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+}

@@ -1,11 +1,16 @@
-import { RegisterForm } from "@/components/auth/Register-form"
+"use client";
 
-const signup = () => {
-  return (  
-    <div className="w-full h-screen flex items-center justify-center">
-    <RegisterForm />
-    </div>
-  )
-}
+import { GuestGuard } from "@/components/GuestGuard";
+import { RegisterForm } from "@/components/auth/Register-form";
 
-export default signup
+const SignupPage = () => {
+  return (
+    <GuestGuard>
+      <div className="w-full min-h-screen flex items-center justify-center bg-background px-4">
+        <RegisterForm />
+      </div>
+    </GuestGuard>
+  );
+};
+
+export default SignupPage;

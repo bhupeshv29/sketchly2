@@ -1,14 +1,16 @@
-"use client"
+"use client";
 
-import { CreateRoomForm } from "@/components/auth/CreateRoomForm"
+import { AuthGuard } from "@/components/AuthGuard";
+import { CreateRoomForm } from "@/components/auth/CreateRoomForm";
 
+const CreateRoomPage = () => {
+  return (
+    <AuthGuard>
+      <div className="w-full min-h-screen flex items-center justify-center bg-background px-4">
+        <CreateRoomForm />
+      </div>
+    </AuthGuard>
+  );
+};
 
-const page = () => {
-return (  
-    <div className="w-full h-screen flex items-center justify-center">
-    <CreateRoomForm />
-    </div>
-  )
-
-}
-export default page
+export default CreateRoomPage;

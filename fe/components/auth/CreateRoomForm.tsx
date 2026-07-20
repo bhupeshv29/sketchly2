@@ -8,7 +8,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,11 +15,13 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { useState } from "react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export function CreateRoomForm() {
-  const [error, setError] = useState("");
-  const [successRoom, setSuccessRoom] = useState<string | null>(null); 
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof CreateRoomSchema>>({
     resolver: zodResolver(CreateRoomSchema),
@@ -30,9 +31,6 @@ export function CreateRoomForm() {
   });
 
   const onSubmit = async (values: z.infer<typeof CreateRoomSchema>) => {
-    setError("");
-    setSuccessRoom(null);
-
     const token = localStorage.getItem("token");
 
     try {
@@ -45,33 +43,45 @@ export function CreateRoomForm() {
         body: JSON.stringify(values),
       });
 
-      if (!response.ok) {
-        throw new Error("Something went wrong!");
+      const data = await response.json();
+
+      if (data.error) {
+        toast.error(data.error);
+        form.setError("root", { message: data.error });
+        return;
       }
 
-      const responseData = await response.json();
-
-      if (responseData.error) {
-        setError(responseData.error);
-      } else {
-        setSuccessRoom(values.roomName); 
-        window.location.href = `/room/${values.roomName}`;
-      }
+      toast.success("Room created!");
+      router.push(`/room/${values.roomName}`);
     } catch (err) {
-      setError((err as Error).message || "Unexpected error occurred");
+      const msg = (err as Error).message || "Failed to create room";
+      toast.error(msg);
+      form.setError("root", { message: msg });
     }
   };
 
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
-        <CardTitle className="w-full text-center">
-          Enter the room name
-        </CardTitle>
+        <div className="flex items-center gap-2 mb-2">
+          <Link
+            href="/dashboard"
+            className="flex items-center justify-center h-8 w-8 rounded-md hover:bg-muted transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </Link>
+        </div>
+        <CardTitle className="text-2xl">Create a new room</CardTitle>
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            {form.formState.errors.root && (
+              <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+                {form.formState.errors.root.message}
+              </div>
+            )}
+
             <FormField
               control={form.control}
               name="roomName"
@@ -80,36 +90,21 @@ export function CreateRoomForm() {
                   <FormLabel>Room Name</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Enter Room Name"
+                      placeholder="My awesome room"
                       type="text"
                       {...field}
                     />
                   </FormControl>
                   <FormMessage />
-                  {error && <FormMessage>{error}</FormMessage>}
-                  <FormDescription>
-                    This is your public display room name.
-                  </FormDescription>
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full mt-4">
+
+            <Button type="submit" className="w-full">
               Create Room
             </Button>
           </form>
         </Form>
-        {successRoom && (
-          <div className="mt-4 p-4 bg-green-100 text-green-800 rounded-md">
-            Room created successfully!{" "}
-
-              <a href={`/room/${successRoom}`} className="font-semibold text-blue-600 hover:underline">
-                <div className="flex items-center hover:underline">
-                Go to /room/{successRoom}
-                </div>
-              </a>
-
-          </div>
-        )}
       </CardContent>
     </Card>
   );

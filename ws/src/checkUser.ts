@@ -1,21 +1,14 @@
-import jwt from "jsonwebtoken"
-import "dotenv/config"
+import jwt from "jsonwebtoken";
+import "dotenv/config";
 
+export const checkUser = (token: string): string | null => {
+  const decoded = jwt.verify(token, process.env.JWT_SECRET || "123123") as {
+    userId: string;
+  };
 
-export const  checkUser = (token: string) : string | null => {
-    
-
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || "23123") as { userId: string }
- 
-    
-    
-
-    if(decoded){
-        return decoded.userId
-    }
-    else {
-        return null
-    }
-
-
-}
+  if (decoded) {
+    return decoded.userId;
+  } else {
+    return null;
+  }
+};

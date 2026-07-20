@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres
+    container_name: sketchly-db
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: sketchly-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql
+
+volumes:
+  pgdata:

@@ -1,11 +1,16 @@
-import { LoginForm } from "@/components/auth/LoginForm"
+"use client";
 
-const signin = () => {
-  return (  
-    <div className="w-full h-screen flex items-center justify-center">
-    <LoginForm />
-    </div>
-  )
-}
+import { GuestGuard } from "@/components/GuestGuard";
+import { LoginForm } from "@/components/auth/LoginForm";
 
-export default signin
+const SigninPage = () => {
+  return (
+    <GuestGuard>
+      <div className="w-full min-h-screen flex items-center justify-center bg-background px-4">
+        <LoginForm />
+      </div>
+    </GuestGuard>
+  );
+};
+
+export default SigninPage;
