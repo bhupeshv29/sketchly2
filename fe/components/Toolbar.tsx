@@ -51,7 +51,7 @@ export const Toolbar = ({ activeTool, setActiveTool }: ToolbarProps) => {
   ];
 
   return (
-    <div className="w-fit h-16 py-2 px-4 fixed top-5 left-[50%] -translate-x-[50%]">
+    <div className="w-fit h-16 py-2 px-4 fixed top-16 left-[50%] -translate-x-[50%]">
       <div className="flex bg-[#232329] px-4 py-1 rounded-md gap-3 h-full">
         {Tool.map((tool, index) => {
           return (

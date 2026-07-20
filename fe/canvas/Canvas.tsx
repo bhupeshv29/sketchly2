@@ -66,7 +66,7 @@ export const Canvas = ({ roomId, socket, room }: CanvasProps) => {
   }, [game?.outputScale]);
 
   return (
-    <div className="w-full h-[calc(100vh-48px)]">
+    <div className="w-full h-full">
       <Toolbar activeTool={activeTool} setActiveTool={setActiveTool} />
       <Sidebar
         activeTool={activeTool}

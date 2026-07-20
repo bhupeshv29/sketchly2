@@ -56,6 +56,8 @@ export class Game {
   private strokeWidth: number = 1;
   private strokeFill: string = "rgba(255, 255, 255)";
   private bgFill: string = "rgba(18, 18, 18)";
+  private offsetX: number = 0;
+  private offsetY: number = 0;
 
   constructor(
     canvas: HTMLCanvasElement,
@@ -70,8 +72,12 @@ export class Game {
     this.socket = socket;
     this.clicked = false;
     this.existingShape = [];
-    this.canvas.width = document.body.clientWidth;
-    this.canvas.height = document.body.clientHeight;
+    const parent = this.canvas.parentElement!;
+    this.canvas.width = parent.clientWidth;
+    this.canvas.height = parent.clientHeight;
+    const rect = this.canvas.getBoundingClientRect();
+    this.offsetX = rect.left;
+    this.offsetY = rect.top;
     this.onScaleChangeCallback = onScaleChangeCallback;
     this.room = room;
     this.init();
@@ -358,8 +364,8 @@ export class Game {
     clientX: number,
     clientY: number,
   ): { x: number; y: number } {
-    const x = (clientX - this.panX) / this.scale;
-    const y = (clientY - this.panY) / this.scale;
+    const x = (clientX - this.offsetX - this.panX) / this.scale;
+    const y = (clientY - this.offsetY - this.panY) / this.scale;
     return { x, y };
   }
 
@@ -586,8 +592,8 @@ export class Game {
     const scaleAmount = -e.deltaY / 200;
     const newScale = this.scale * (1 + scaleAmount);
 
-    const mouseX = e.clientX - this.canvas.offsetLeft;
-    const mouseY = e.clientY - this.canvas.offsetTop;
+    const mouseX = e.clientX - this.offsetX;
+    const mouseY = e.clientY - this.offsetY;
     // Position of cursor on canvas
     const canvasMouseX = (mouseX - this.panX) / this.scale;
     const canvasMouseY = (mouseY - this.panY) / this.scale;

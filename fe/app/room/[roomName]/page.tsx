@@ -41,9 +41,9 @@ const RoomPage = async (props: {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="h-screen flex flex-col bg-background overflow-hidden">
       <RoomHeader roomName={room.roomName} />
-      <div className="pt-12">
+      <div className="flex-1 min-h-0">
         <RoomCanvas roomId={room.id} room={room} />
       </div>
     </div>
