@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Game } from "@/render/Game";
 import { useState } from "react";
@@ -20,8 +20,8 @@ export const AIGenerateButton = ({ game }: { game?: Game }) => {
     setError("");
 
     try {
-      const url  = process.env.NEXT_PUBLIC_HTTP_URL;
-      
+      const url = process.env.NEXT_PUBLIC_HTTP_URL;
+
       const response = await fetch(`${url}/generate`, {
         method: "POST",
         headers: {
@@ -33,7 +33,7 @@ export const AIGenerateButton = ({ game }: { game?: Game }) => {
       if (!response.ok) throw new Error("Generation failed");
 
       const shape = await response.json();
-      
+
       game.addShape(shape);
 
       if (socket && socket.readyState === WebSocket.OPEN) {
@@ -42,14 +42,14 @@ export const AIGenerateButton = ({ game }: { game?: Game }) => {
             type: "draw",
             data: JSON.stringify({ shape }),
             roomId: game.getRoomId(),
-          })
+          }),
         );
       } else {
         console.error("WebSocket is not open. Cannot send data.");
       }
 
       setPrompt("");
-    } catch (error) { 
+    } catch (error) {
       setError("Failed to generate shape. Please try again.");
       console.error("Generation error:", error);
     } finally {

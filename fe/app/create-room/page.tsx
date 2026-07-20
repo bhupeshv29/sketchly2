@@ -1,14 +1,12 @@
-"use client"
+"use client";
 
-import { CreateRoomForm } from "@/components/auth/CreateRoomForm"
-
+import { CreateRoomForm } from "@/components/auth/CreateRoomForm";
 
 const page = () => {
-return (  
+  return (
     <div className="w-full h-screen flex items-center justify-center">
-    <CreateRoomForm />
+      <CreateRoomForm />
     </div>
-  )
-
-}
-export default page
+  );
+};
+export default page;

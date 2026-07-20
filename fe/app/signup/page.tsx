@@ -1,11 +1,11 @@
-import { RegisterForm } from "@/components/auth/Register-form"
+import { RegisterForm } from "@/components/auth/Register-form";
 
 const signup = () => {
-  return (  
+  return (
     <div className="w-full h-screen flex items-center justify-center">
-    <RegisterForm />
+      <RegisterForm />
     </div>
-  )
-}
+  );
+};
 
-export default signup
+export default signup;

@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button';
-import { Brush, Menu } from 'lucide-react';
-import Link from 'next/link';
-import React, { useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { Brush, Menu } from "lucide-react";
+import Link from "next/link";
+import React, { useState } from "react";
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -10,13 +10,13 @@ export function Navbar() {
   React.useEffect(() => {
     if (!menuOpen) return;
     const handleClick = (e: MouseEvent) => {
-      const menu = document.getElementById('mobile-menu');
+      const menu = document.getElementById("mobile-menu");
       if (menu && !menu.contains(e.target as Node)) {
         setMenuOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
   }, [menuOpen]);
 
   return (

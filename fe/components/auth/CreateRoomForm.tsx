@@ -20,7 +20,7 @@ import { useState } from "react";
 
 export function CreateRoomForm() {
   const [error, setError] = useState("");
-  const [successRoom, setSuccessRoom] = useState<string | null>(null); 
+  const [successRoom, setSuccessRoom] = useState<string | null>(null);
 
   const form = useForm<z.infer<typeof CreateRoomSchema>>({
     resolver: zodResolver(CreateRoomSchema),
@@ -54,7 +54,7 @@ export function CreateRoomForm() {
       if (responseData.error) {
         setError(responseData.error);
       } else {
-        setSuccessRoom(values.roomName); 
+        setSuccessRoom(values.roomName);
         window.location.href = `/room/${values.roomName}`;
       }
     } catch (err) {
@@ -101,13 +101,14 @@ export function CreateRoomForm() {
         {successRoom && (
           <div className="mt-4 p-4 bg-green-100 text-green-800 rounded-md">
             Room created successfully!{" "}
-
-              <a href={`/room/${successRoom}`} className="font-semibold text-blue-600 hover:underline">
-                <div className="flex items-center hover:underline">
+            <a
+              href={`/room/${successRoom}`}
+              className="font-semibold text-blue-600 hover:underline"
+            >
+              <div className="flex items-center hover:underline">
                 Go to /room/{successRoom}
-                </div>
-              </a>
-
+              </div>
+            </a>
           </div>
         )}
       </CardContent>

@@ -1,6 +1,5 @@
-import "dotenv/config"
+import "dotenv/config";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-
 
 const SYSTEM_PROMPT = `You are an AI illustration generator. Follow these rules STRICTLY:
 1. Respond ONLY with raw JSON between curly braces
@@ -79,7 +78,7 @@ Example response for "blue circle at center":
 }`;
 
 const genAI = new GoogleGenerativeAI(
-  process.env.GOOGLE_GENERATIVE_AI_API_KEY || ""
+  process.env.GOOGLE_GENERATIVE_AI_API_KEY || "",
 );
 
 export const model = genAI.getGenerativeModel({
