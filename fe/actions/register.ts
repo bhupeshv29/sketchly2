@@ -1,6 +1,6 @@
 "use server";
+
 import { RegisterSchema } from "@/types";
-import { redirect } from "next/navigation";
 import { z } from "zod";
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
@@ -12,8 +12,14 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     body: JSON.stringify(values),
   });
 
-  if (res.status === 200) {
-    return res.json();
+  const data = await res.json();
+
+  if (data.error) {
+    throw new Error(data.error);
+  }
+
+  if (data.user) {
+    return data;
   }
 
   throw new Error("Something went wrong");

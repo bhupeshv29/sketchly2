@@ -8,8 +8,8 @@ export const getRoom = async (roomName: string) => {
 
   if (res.status === 200) {
     const data = await res.json();
-    return data.room;
+    return data.room || null;
   }
 
-  throw new Error("Something went wrong");
+  return null;
 };

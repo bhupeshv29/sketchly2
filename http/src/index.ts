@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 import "dotenv/config";
 import cors from "cors";
 import { middleware } from "./middleware";
-import { model } from "./ai";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 export const prismaClient = new PrismaClient();
@@ -188,27 +187,6 @@ app.get("/user", middleware, async (req, res) => {
   res.json({
     user,
   });
-});
-
-app.post("/generate", async (req, res) => {
-  try {
-    const prompt = req.body.prompt;
-    const result = await model.generateContent(prompt);
-    let rawText = result.response.text();
-
-    rawText = rawText
-      .replace(/^[^\{]*/, "")
-      .replace(/[^\}]*$/, "")
-      .replace(/\\n/g, "")
-      .trim();
-
-    const shapes = JSON.parse(rawText);
-
-    res.json(shapes);
-  } catch (e) {
-    console.error("AI Generation Error:", e);
-    res.status(500).json({ error: "Something went wrong." });
-  }
 });
 
 const PORT = process.env.PORT || 3001;

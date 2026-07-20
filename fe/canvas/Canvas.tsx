@@ -1,6 +1,5 @@
 "use client";
 
-import { AIGenerateButton } from "@/components/AIGenerateButton";
 import { Scale } from "@/components/Scale";
 import { Sidebar } from "@/components/Sidebar";
 import { Toolbar } from "@/components/Toolbar";
@@ -67,7 +66,7 @@ export const Canvas = ({ roomId, socket, room }: CanvasProps) => {
   }, [game?.outputScale]);
 
   return (
-    <div className="w-full h-screen">
+    <div className="w-full h-[calc(100vh-48px)]">
       <Toolbar activeTool={activeTool} setActiveTool={setActiveTool} />
       <Sidebar
         activeTool={activeTool}
@@ -78,7 +77,6 @@ export const Canvas = ({ roomId, socket, room }: CanvasProps) => {
         bgFill={bgFill}
         setBgFill={setBgFill}
       />
-      <AIGenerateButton game={game} />
       <Scale scale={scale} />
       <canvas ref={canvasRef} />
     </div>

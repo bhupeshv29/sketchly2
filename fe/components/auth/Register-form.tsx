@@ -1,4 +1,5 @@
 "use client";
+
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { RegisterSchema } from "@/types";
@@ -17,10 +18,11 @@ import { Button } from "../ui/button";
 import { useTransition } from "react";
 import { register } from "@/actions/register";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import Link from "next/link";
 
 export function RegisterForm() {
   const router = useRouter();
-
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
@@ -36,10 +38,12 @@ export function RegisterForm() {
     startTransition(() =>
       register(values)
         .then(() => {
+          toast.success("Account created! Please sign in.");
           router.push("/signin");
         })
-        .catch((e) => {
-          console.log(e);
+        .catch((err) => {
+          toast.error(err.message || "Registration failed");
+          form.setError("root", { message: err.message });
         }),
     );
   };
@@ -47,11 +51,19 @@ export function RegisterForm() {
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
-        <CardTitle className="w-full text-center">Sign Up to Sketchy</CardTitle>
+        <CardTitle className="w-full text-center text-2xl">
+          Create your account
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            {form.formState.errors.root && (
+              <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+                {form.formState.errors.root.message}
+              </div>
+            )}
+
             <FormField
               control={form.control}
               name="email"
@@ -89,6 +101,7 @@ export function RegisterForm() {
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="password"
@@ -108,11 +121,18 @@ export function RegisterForm() {
               )}
             />
 
-            <Button type="submit" disabled={isPending} className="w-full mt-4">
-              Register
+            <Button type="submit" disabled={isPending} className="w-full">
+              {isPending ? "Creating account..." : "Create Account"}
             </Button>
           </form>
         </Form>
+
+        <div className="mt-4 text-center text-sm text-muted-foreground">
+          Already have an account?{" "}
+          <Link href="/signin" className="text-primary hover:underline font-medium">
+            Sign in
+          </Link>
+        </div>
       </CardContent>
     </Card>
   );

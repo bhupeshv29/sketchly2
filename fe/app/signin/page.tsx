@@ -1,11 +1,16 @@
+"use client";
+
+import { GuestGuard } from "@/components/GuestGuard";
 import { LoginForm } from "@/components/auth/LoginForm";
 
-const signin = () => {
+const SigninPage = () => {
   return (
-    <div className="w-full h-screen flex items-center justify-center">
-      <LoginForm />
-    </div>
+    <GuestGuard>
+      <div className="w-full min-h-screen flex items-center justify-center bg-background px-4">
+        <LoginForm />
+      </div>
+    </GuestGuard>
   );
 };
 
-export default signin;
+export default SigninPage;

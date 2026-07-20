@@ -1,7 +1,6 @@
 "use server";
 
 import { LoginSchema } from "@/types";
-
 import { z } from "zod";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
@@ -13,9 +12,15 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     body: JSON.stringify(values),
   });
 
-  if (res.status === 200) {
-    return res.json();
+  const data = await res.json();
+
+  if (data.error) {
+    throw new Error(data.error);
   }
 
-  throw new Error("Something Went Wrong");
+  if (data.token) {
+    return data;
+  }
+
+  throw new Error("Something went wrong");
 };
